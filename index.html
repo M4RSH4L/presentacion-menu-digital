@@ -25,7 +25,7 @@
 
 <main>
 
-  <section class="categories">
+  <section class="categories" id="categories">
     <div class="cat-btn active" data-cat="desayunos"><i class="fa-solid fa-mug-hot"></i><span>Desayunos</span></div>
     <div class="cat-btn" data-cat="almuerzos"><i class="fa-solid fa-fish"></i><span>Almuerzos</span></div>
     <div class="cat-btn" data-cat="casera"><i class="fa-solid fa-utensils"></i><span>Comida Casera</span></div>
@@ -33,6 +33,9 @@
     <div class="cat-btn" data-cat="jugos"><i class="fa-solid fa-glass-water"></i><span>Juguería</span></div>
     <div class="cat-btn" data-cat="kiosko"><i class="fa-solid fa-store"></i><span>Kiosko</span></div>
   </section>
+
+  <!-- Botón flotante volver arriba -->
+  <button id="backToCategories" aria-label="Volver a categorías">↑</button>
 
   <section class="menu-grid" id="menu">
 
@@ -55,12 +58,22 @@
         <div class="price">$4500</div>
       </div>
     </div>
+
      <div class="card" data-cat="desayunos">
       <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0" alt="Desayuno frente al mar">
       <div class="card-content">
-        <h3>Desayuno</h3>
-        <p>Café</p>
-        <div class="price">$9500</div>
+        <h3>Desayuno Completo</h3>
+        <p>Café, medialunas y jugo natural.</p>
+        <div class="price">$4500</div>
+      </div>
+    </div>
+
+     <div class="card" data-cat="desayunos">
+      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0" alt="Desayuno frente al mar">
+      <div class="card-content">
+        <h3>Desayuno Completo</h3>
+        <p>Café, medialunas y jugo natural.</p>
+        <div class="price">$4500</div>
       </div>
     </div>
 
@@ -70,6 +83,57 @@
         <h3>Pescado Grillado</h3>
         <p>Con guarnición fresca y limón.</p>
         <div class="price">$9800</div>
+      </div>
+    </div>
+  
+
+    <div class="card" data-cat="almuerzos">
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
+      <div class="card-content">
+        <h3>Pescado Grillado</h3>
+        <p>Con guarnición fresca y limón.</p>
+        <div class="price">$9800</div>
+      </div>
+    </div>
+
+
+
+    <div class="card" data-cat="almuerzos">
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
+      <div class="card-content">
+        <h3>Pescado Grillado</h3>
+        <p>Con guarnición fresca y limón.</p>
+        <div class="price">$9800</div>
+      </div>
+    </div>
+ 
+
+    <div class="card" data-cat="casera">
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
+      <div class="card-content">
+        <h3>Pescado Grillado</h3>
+        <p>Con guarnición fresca y limón.</p>
+        <div class="price">$99800</div>
+      </div>
+    </div>
+
+
+      <div class="card" data-cat="casera">
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
+      <div class="card-content">
+        <h3>Pescado Grillado</h3>
+        <p>Con guarnición fresca y limón.</p>
+        <div class="price">$9800</div>
+      </div>
+    </div>
+  
+
+      <div class="card" data-cat="casera">
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
+      <div class="card-content">
+        <h3>Pescado Grillado</h3>
+        <p>Con guarnición fresca y limón.</p>
+        <div class="price">$111800</div>
       </div>
     </div>
   </section>
@@ -83,16 +147,43 @@
 <script>
   const buttons = document.querySelectorAll('.cat-btn');
   const cards = document.querySelectorAll('.card');
+  const menu = document.getElementById('menu');
+  const backBtn = document.getElementById('backToCategories');
+  const categories = document.getElementById('categories');
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const cat = btn.dataset.cat;
+
+      let firstVisibleCard = null;
+
       cards.forEach(card => {
-        card.style.display = card.dataset.cat === cat ? 'block' : 'none';
+        if (card.dataset.cat === cat) {
+          card.style.display = 'block';
+          if (!firstVisibleCard) firstVisibleCard = card;
+        } else {
+          card.style.display = 'none';
+        }
       });
+
+      if (firstVisibleCard) {
+        firstVisibleCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > menu.offsetTop - 200) {
+      backBtn.classList.add('show');
+    } else {
+      backBtn.classList.remove('show');
+    }
+  });
+
+  backBtn.addEventListener('click', () => {
+    categories.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 </script>
 
