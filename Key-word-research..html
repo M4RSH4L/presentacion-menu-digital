@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Parador de Playa | Menú Digital – Restaurante en la Costa</title>
+  <meta name="description" content="Menú digital del parador de playa. Desayunos, almuerzos, meriendas, pescados, minutas, jugos detox y postres frente al mar." />
+  <meta name="keywords" content="parador de playa, restaurante en la costa, menú digital, comida casera, pescados, minutas, jugos detox" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <!-- LOGOTIPO DEL PARADOR -->
+    <img src="https://playa13alsur.com.ar/img/Playa13alSur.png" alt="Playa 13 al Sur – Parador de playa y restaurante" class="logo" />
+
+    <h1>Parador de Playa</h1>
+    <p>Comida casera, pescados frescos y tragos frente al mar. Escaneá el QR y disfrutá.</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="categories">
+    <div class="cat-btn active" data-cat="desayunos"><i class="fa-solid fa-mug-hot"></i><span>Desayunos</span></div>
+    <div class="cat-btn" data-cat="almuerzos"><i class="fa-solid fa-fish"></i><span>Almuerzos</span></div>
+    <div class="cat-btn" data-cat="casera"><i class="fa-solid fa-utensils"></i><span>Comida Casera</span></div>
+    <div class="cat-btn" data-cat="postres"><i class="fa-solid fa-ice-cream"></i><span>Postres</span></div>
+    <div class="cat-btn" data-cat="jugos"><i class="fa-solid fa-glass-water"></i><span>Juguería</span></div>
+    <div class="cat-btn" data-cat="kiosko"><i class="fa-solid fa-store"></i><span>Kiosko</span></div>
+  </section>
+
+  <section class="menu-grid" id="menu">
+
+    <!-- ======================================
+         🔁 PLANTILLA DE PRODUCTO (CARD)
+         👉 DUPLICAR ESTE BLOQUE PARA:
+            - Agregar un nuevo producto
+            - Editar nombre, descripción o precio
+            - Borrar el producto completo
+         👉 IMPORTANTE PARA SEO:
+            - Mantener <h3> con palabras clave
+            - Descripción clara y real del plato
+            - Usar alt descriptivo en la imagen
+    ======================================= -->
+    <div class="card" data-cat="desayunos">
+      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0" alt="Desayuno frente al mar">
+      <div class="card-content">
+        <h3>Desayuno Completo</h3>
+        <p>Café, medialunas y jugo natural.</p>
+        <div class="price">$4500</div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="almuerzos">
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
+      <div class="card-content">
+        <h3>Pescado Grillado</h3>
+        <p>Con guarnición fresca y limón.</p>
+        <div class="price">$9800</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Parador de Playa</strong> · Menú digital optimizado para buscadores</p>
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('.cat-btn');
+  const cards = document.querySelectorAll('.card');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      cards.forEach(card => {
+        card.style.display = card.dataset.cat === cat ? 'block' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
