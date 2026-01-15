@@ -8,6 +8,8 @@
   <meta name="description" content="Menú digital del parador de playa. Desayunos, almuerzos, meriendas, pescados, minutas, jugos detox y postres frente al mar." />
   <meta name="keywords" content="parador de playa, restaurante en la costa, menú digital, comida casera, pescados, minutas, jugos detox" />
   <link rel="stylesheet" href="styles.css" />
+ 
+
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
@@ -15,177 +17,148 @@
 
 <header>
   <div class="header-inner">
-    <!-- LOGOTIPO DEL PARADOR -->
-    <!-- <img src="https://playa13alsur.com.ar/img/Playa13alSur.png" alt="Playa 13 al Sur – Parador de playa y restaurante" class="logo" /> -->
-
+    <div class="hero"></div>
+    <img class="logo" alt="Logo">
     <h1>Parador de Playa</h1>
-    <p>Comida casera, pescados frescos y tragos frente al mar. Escaneá el QR y disfrutá.</p>
+    <p>Comida casera, pescados frescos y tragos frente al mar.</p>
   </div>
 </header>
 
 <main>
 
   <section class="categories" id="categories">
-    <div class="cat-btn active" data-cat="desayunos"><i class="fa-solid fa-mug-hot"></i><span>Desayunos</span></div>
+    <div class="cat-btn" data-cat="bebidas"><i class="fa-solid fa-bottle-water"></i><span>Bebidas</span></div>
+    <div class="cat-btn active" data-cat="desayunos"><i class="fa-solid fa-mug-hot"></i><span>Desayunos y Meriendas</span></div>
     <div class="cat-btn" data-cat="almuerzos"><i class="fa-solid fa-fish"></i><span>Almuerzos</span></div>
     <div class="cat-btn" data-cat="casera"><i class="fa-solid fa-utensils"></i><span>Comida Casera</span></div>
     <div class="cat-btn" data-cat="postres"><i class="fa-solid fa-ice-cream"></i><span>Postres</span></div>
-    <div class="cat-btn" data-cat="jugos"><i class="fa-solid fa-glass-water"></i><span>Juguería</span></div>
     <div class="cat-btn" data-cat="kiosko"><i class="fa-solid fa-store"></i><span>Kiosko</span></div>
+    <div class="cat-btn" data-cat="reservas" href="https://whastapp.com"><i class="fa-solid fa-phone"></i><span>Reservas</span></div>
+
   </section>
 
   <!-- Botón flotante volver arriba -->
   <button id="backToCategories" aria-label="Volver a categorías">↑</button>
 
-  <section class="menu-grid" id="menu">
+<section class="menu-grid" id="menu"></section>
 
-    <!-- ======================================
-         🔁 PLANTILLA DE PRODUCTO (CARD)
-         👉 DUPLICAR ESTE BLOQUE PARA:
-            - Agregar un nuevo producto
-            - Editar nombre, descripción o precio
-            - Borrar el producto completo
-         👉 IMPORTANTE PARA SEO:
-            - Mantener <h3> con palabras clave
-            - Descripción clara y real del plato
-            - Usar alt descriptivo en la imagen
-    ======================================= -->
-    <div class="card" data-cat="desayunos">
-      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0" alt="Desayuno frente al mar">
-      <div class="card-content">
-        <h3>Desayuno Completo</h3>
-        <p>Café, medialunas y jugo natural.</p>
-        <div class="price">$4500</div>
-      </div>
-    </div>
-
-     <div class="card" data-cat="desayunos">
-      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0" alt="Desayuno frente al mar">
-      <div class="card-content">
-        <h3>Desayuno Completo</h3>
-        <p>Café, medialunas y jugo natural.</p>
-        <div class="price">$4500</div>
-      </div>
-    </div>
-
-     <div class="card" data-cat="desayunos">
-      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0" alt="Desayuno frente al mar">
-      <div class="card-content">
-        <h3>Desayuno Completo</h3>
-        <p>Café, medialunas y jugo natural.</p>
-        <div class="price">$4500</div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="almuerzos">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
-      <div class="card-content">
-        <h3>Pescado Grillado</h3>
-        <p>Con guarnición fresca y limón.</p>
-        <div class="price">$9800</div>
-      </div>
-    </div>
-  
-
-    <div class="card" data-cat="almuerzos">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
-      <div class="card-content">
-        <h3>Pescado Grillado</h3>
-        <p>Con guarnición fresca y limón.</p>
-        <div class="price">$9800</div>
-      </div>
-    </div>
-
-
-
-    <div class="card" data-cat="almuerzos">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
-      <div class="card-content">
-        <h3>Pescado Grillado</h3>
-        <p>Con guarnición fresca y limón.</p>
-        <div class="price">$9800</div>
-      </div>
-    </div>
- 
-
-    <div class="card" data-cat="casera">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
-      <div class="card-content">
-        <h3>Pescado Grillado</h3>
-        <p>Con guarnición fresca y limón.</p>
-        <div class="price">$99800</div>
-      </div>
-    </div>
-
-
-      <div class="card" data-cat="casera">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
-      <div class="card-content">
-        <h3>Pescado Grillado</h3>
-        <p>Con guarnición fresca y limón.</p>
-        <div class="price">$9800</div>
-      </div>
-    </div>
-  
-
-      <div class="card" data-cat="casera">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Pescado grillado">
-      <div class="card-content">
-        <h3>Pescado Grillado</h3>
-        <p>Con guarnición fresca y limón.</p>
-        <div class="price">$111800</div>
-      </div>
-    </div>
-  </section>
 
 </main>
 
-<footer>
-  <p><strong>Parador de Playa</strong> · Menú digital optimizado para buscadores</p>
+<footer class="footer">
+  <p>
+    <strong>Parador de Playa</strong> · Menú digital optimizado para buscadores
+  </p>
+
+  <a
+   id="instagram-link"
+    href="https://www.instagram.com/TU_USUARIO"
+    target="_blank"
+    rel="noopener"
+    class="instagram-link"
+    aria-label="Seguinos en Instagram"
+  >
+    <i class="fa-brands fa-instagram"></i>
+    Seguinos en Instagram
+  </a>
 </footer>
 
-<script>
-  const buttons = document.querySelectorAll('.cat-btn');
-  const cards = document.querySelectorAll('.card');
-  const menu = document.getElementById('menu');
-  const backBtn = document.getElementById('backToCategories');
-  const categories = document.getElementById('categories');
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
+<script>
+const SHEET_URL =
+  "https://docs.google.com/spreadsheets/d/1S4x8FEcl0-o6eUy3LxKaeD1iRSxpIqqricd8fbpp_S8/export?format=csv&gid=0";
+
+const menu = document.getElementById("menu");
+
+fetch(SHEET_URL)
+  .then(res => res.text())
+  .then(csv => {
+    const lines = csv.trim().split("\n");
+    const headers = lines[0].split(",");
+
+    const data = lines.slice(1).map(line => {
+      const values = line.split(",");
+      return Object.fromEntries(
+        headers.map((h, i) => [h.trim(), values[i]?.trim()])
+      );
+    });
+
+    console.log("DATA OK:", data);
+
+    renderCards(data);
+  })
+  .catch(err => console.error("ERROR:", err));
+
+function renderCards(data) {
+  menu.innerHTML = ""; // 🔥 limpiamos todo
+
+  data.forEach(item => {
+    if (item.activo !== "si") return;
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.cat = item.categoria
+  .toLowerCase()
+  .trim();
+
+
+    const imgSrc =
+      item.imagen && item.imagen !== ""
+        ? item.imagen
+        : "https://via.placeholder.com/400x300?text=Sin+imagen";
+
+    card.innerHTML = `
+      <img src="${imgSrc}" alt="${item.nombre}">
+      <div class="card-content">
+        <h3>${item.nombre}</h3>
+        <p>${item.descripcion}</p>
+        <div class="price">$${item.precio}</div>
+      </div>
+    `;
+
+    menu.appendChild(card);
+  });
+
+      initCategoryFilter();
+ // 👈 importante
+}
+
+function initCategoryFilter() {
+  const buttons = document.querySelectorAll('.cat-btn');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Estado activo
       buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.dataset.cat;
+      button.classList.add('active');
+
+      const category = button.dataset.cat;
+      const cards = document.querySelectorAll('.card');
 
       let firstVisibleCard = null;
 
       cards.forEach(card => {
-        if (card.dataset.cat === cat) {
-          card.style.display = 'block';
-          if (!firstVisibleCard) firstVisibleCard = card;
-        } else {
-          card.style.display = 'none';
+        const match = card.dataset.cat === category;
+        card.style.display = match ? 'block' : 'none';
+
+        if (match && !firstVisibleCard) {
+          firstVisibleCard = card;
         }
       });
 
       if (firstVisibleCard) {
-        firstVisibleCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        firstVisibleCard.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
       }
     });
   });
+}
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > menu.offsetTop - 200) {
-      backBtn.classList.add('show');
-    } else {
-      backBtn.classList.remove('show');
-    }
-  });
-
-  backBtn.addEventListener('click', () => {
-    categories.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
 </script>
+<script src="script.js"></script>
+
 
 </body>
 </html>
