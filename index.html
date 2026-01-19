@@ -25,17 +25,8 @@
 </header>
 
 <main>
+<section class="categories" id="categories"></section>
 
-  <section class="categories" id="categories">
-    <div class="cat-btn" data-cat="bebidas"><i class="fa-solid fa-bottle-water"></i><span>Bebidas</span></div>
-    <div class="cat-btn active" data-cat="desayunos"><i class="fa-solid fa-mug-hot"></i><span>Desayunos y Meriendas</span></div>
-    <div class="cat-btn" data-cat="almuerzos"><i class="fa-solid fa-fish"></i><span>Almuerzos</span></div>
-    <div class="cat-btn" data-cat="casera"><i class="fa-solid fa-utensils"></i><span>Comida Casera</span></div>
-    <div class="cat-btn" data-cat="postres"><i class="fa-solid fa-ice-cream"></i><span>Postres</span></div>
-    <div class="cat-btn" data-cat="kiosko"><i class="fa-solid fa-store"></i><span>Kiosko</span></div>
-    <div class="cat-btn" data-cat="reservas" href="https://whastapp.com"><i class="fa-solid fa-phone"></i><span>Reservas</span></div>
-
-  </section>
 
   <!-- Botón flotante volver arriba -->
   <button id="backToCategories" aria-label="Volver a categorías">↑</button>
@@ -62,13 +53,88 @@
     Seguinos en Instagram
   </a>
 </footer>
-
+<script src="script.js"></script>
 
 <script>
+function renderCategories(data) {
+  const container = document.getElementById("categories");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  // Construimos mapa categoria → orden
+  const categoryMap = {};
+
+  data.forEach(item => {
+    if (!item.categoria) return;
+
+    const cat = item.categoria.toLowerCase().trim();
+    const order = parseInt(item.orden_categoria, 10);
+
+    if (!categoryMap[cat]) {
+      categoryMap[cat] = {
+        key: cat,
+        order: isNaN(order) ? 999 : order
+      };
+    }
+  });
+
+  // Convertimos a array y ordenamos
+  let categories = Object.values(categoryMap)
+    .sort((a, b) => a.order - b.order);
+
+  // 🔒 contacto SIEMPRE al final
+  if (CATEGORY_PRESET.contacto) {
+    categories.push({
+      key: "contacto",
+      order: 9999
+    });
+  }
+
+  categories.forEach((catObj, index) => {
+    const preset = CATEGORY_PRESET[catObj.key];
+    if (!preset) return;
+
+    const btn = document.createElement("div");
+    btn.className = "cat-btn";
+    if (index === 0) btn.classList.add("active");
+
+    btn.dataset.cat = catObj.key;
+    btn.innerHTML = `
+      <i class="fa-solid ${preset.icon}"></i>
+      <span>${preset.label}</span>
+    `;
+
+    container.appendChild(btn);
+  });
+}
+
+
+
 const SHEET_URL =
   "https://docs.google.com/spreadsheets/d/1S4x8FEcl0-o6eUy3LxKaeD1iRSxpIqqricd8fbpp_S8/export?format=csv&gid=0";
 
 const menu = document.getElementById("menu");
+  // categorias del menu dinamico
+const CATEGORY_PRESET = {
+  bebidas: { label: "Bebidas", icon: "fa-bottle-water" },
+  desayunos: { label: "Desayunos y Meriendas", icon: "fa-mug-hot" },
+  almuerzos: { label: "Sandwichs y Hamburguesas", icon: "fa-burger" },
+  picar: { label: "Para Picar", icon: "fa-utensils" },
+  postres: { label: "Postres", icon: "fa-ice-cream" },
+  promociones: { label: "Promociones", icon: "fa-store" },
+  cafeteria: { label: "Cafetería", icon: "fa-mug-saucer" },
+  pescados: { label: "Pescados y Mariscos", icon: "fa-fish" },
+  minutas: { label: "Minutas", icon: "fa-plate-wheat" },
+  jugos: { label: "Jugos Detox", icon: "fa-lemon" },
+  del_dia: { label: "Menú del dia 🔥", icon: "fa-utensils " },
+  contacto: {
+  label: "Reservas / Contacto",
+  icon: "fa-phone",
+  type: "contact"
+},};  
+
+
 
 fetch(SHEET_URL)
   .then(res => res.text())
@@ -86,10 +152,12 @@ fetch(SHEET_URL)
     console.log("DATA OK:", data);
 
     renderCards(data);
+    renderCategories(data);
+    initCategoryFilter();
   })
   .catch(err => console.error("ERROR:", err));
 
-function renderCards(data) {
+function renderCards(data)  {
   menu.innerHTML = ""; // 🔥 limpiamos todo
 
   data.forEach(item => {
@@ -124,22 +192,47 @@ function renderCards(data) {
 }
 
 function initCategoryFilter() {
-  const buttons = document.querySelectorAll('.cat-btn');
+  const buttons = document.querySelectorAll(".cat-btn");
 
   buttons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Estado activo
-      buttons.forEach(b => b.classList.remove('active'));
-      button.classList.add('active');
+    button.addEventListener("click", () => {
+      // estado activo
+      buttons.forEach(b => b.classList.remove("active"));
+      button.classList.add("active");
 
       const category = button.dataset.cat;
-      const cards = document.querySelectorAll('.card');
 
+      document.querySelectorAll(".contact-card").forEach(card => card.remove());
+
+document.querySelectorAll(".card").forEach(card => {
+  card.style.display = "none";
+});
+
+      // 👉 CASO CONTACTO
+      if (category === "contacto") {
+     // ocultamos productos
+      document.querySelectorAll(".card:not(.contact-card)").forEach(card => {
+      card.style.display = "none";
+       });
+
+  // eliminamos contactos previos (por si vuelve a tocar)
+  document.querySelectorAll(".contact-card").forEach(card => card.remove());
+
+  // renderizamos contacto
+  renderContactCards(window.CONFIG);
+
+  return;
+}
+
+
+
+      // 👉 CASO NORMAL (productos)
+      const cards = document.querySelectorAll(".card");
       let firstVisibleCard = null;
 
       cards.forEach(card => {
         const match = card.dataset.cat === category;
-        card.style.display = match ? 'block' : 'none';
+        card.style.display = match ? "block" : "none";
 
         if (match && !firstVisibleCard) {
           firstVisibleCard = card;
@@ -148,16 +241,60 @@ function initCategoryFilter() {
 
       if (firstVisibleCard) {
         firstVisibleCard.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+          behavior: "smooth",
+          block: "start"
         });
       }
     });
   });
 }
 
+function renderContactCards(config) {
+  const menu = document.getElementById("menu");
+
+  const contacts = [
+    {
+      title: "WhatsApp",
+      desc: "Reservas y/o consulta directa",
+      href: config.whatsapp_url,
+      img: config.whatsapp_img,
+      icon: "fa-whatsapp",
+      btn: "Abrir WhatsApp"
+    },
+    {
+      title: "Instagram",
+      desc: "Seguinos y escribinos",
+      href: config.instagram_url,
+      img: config.instagram_img,
+      icon: "fa-instagram",
+      btn: "Ver Instagram"
+    }
+  ];
+
+  contacts.forEach(c => {
+    if (!c.href) return;
+
+    const card = document.createElement("div");
+    card.className = "card contact-card";
+
+    card.innerHTML = `
+      <img src="${c.img}" alt="${c.title}">
+      <div class="card-content">
+        <h3><i class="fa-brands ${c.icon}"></i> ${c.title}</h3>
+        <p>${c.desc}</p>
+        <a href="${c.href}" target="_blank" class="contact-btn">
+          ${c.btn}
+        </a>
+      </div>
+    `;
+
+    menu.appendChild(card); // 👈 SIEMPRE AL FINAL
+  });
+}
+
+
 </script>
-<script src="script.js"></script>
+
 
 
 </body>
